@@ -8,6 +8,7 @@ from sqlalchemy.ext.declarative import declarative_base
 __author__ = "Mathias Bustamante"
 __email__ = "mathiasbc@gmail.com"
 
+
 # dialect+driver://username:password@host:port/database
 SKELETON_URL = '%(dialect_driver)s://%(user)s:%(pass)s@%(host)s/%(database)s'
 
