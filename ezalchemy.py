@@ -8,13 +8,6 @@ from sqlalchemy.ext.declarative import declarative_base
 __author__ = "Mathias Bustamante"
 __email__ = "mathiasbc@gmail.com"
 
-# Database constants
-# TODO: remove after testing
-DB_USER = 'root'
-DB_PASSWORD = 'RdewYAQN'
-DB_DATABASE = 'EZAlchemy'
-DB_HOSTNAME = '127.0.0.1'
-
 # dialect+driver://username:password@host:port/database
 SKELETON_URL = '%(dialect_driver)s://%(user)s:%(pass)s@%(host)s/%(database)s'
 
