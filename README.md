@@ -23,7 +23,7 @@ ezalchemy.connect(
 At this point connect function dynamically included the tables in the database into the module, so lets suppose I have a table named Cars. I can insert a new row just by doing:
 
 ```python
-new_car = ezalchemy.Cars.create(brand='Audi', year='2009', color='green')
+new_car = ezalchemy.Cars().create(brand='Audi', year='2009', color='green')
 ```
 
 
