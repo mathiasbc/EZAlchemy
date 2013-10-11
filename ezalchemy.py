@@ -9,7 +9,6 @@ from sqlalchemy.ext.declarative import declarative_base
 __author__ = "Mathias Bustamante"
 __email__ = "mathiasbc@gmail.com"
 
-
 # dialect+driver://username:password@host:port/database
 SKELETON_URL = '%(dialect_driver)s://%(user)s:%(pass)s@%(host)s/%(database)s'
 
@@ -55,7 +54,6 @@ def connect(db_user, db_password, db_hostname, db_database, d_n_d='mysql'):
 
     # Get the name of the corrunt module
     current_module = importlib.import_module(__name__)
-    # current_module = __import__(__name__)
 
     # iterate over tables and append them to current module
     for tablename in metadata.tables.keys():
