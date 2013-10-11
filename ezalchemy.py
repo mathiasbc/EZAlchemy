@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+import importlib
 
 from sqlalchemy import MetaData, create_engine, Table
 from sqlalchemy.orm import create_session, sessionmaker
@@ -8,12 +9,6 @@ from sqlalchemy.ext.declarative import declarative_base
 __author__ = "Mathias Bustamante"
 __email__ = "mathiasbc@gmail.com"
 
-# Database constants
-# TODO: remove after testing
-DB_USER = 'root'
-DB_PASSWORD = 'RdewYAQN'
-DB_DATABASE = 'EZAlchemy'
-DB_HOSTNAME = '127.0.0.1'
 
 # dialect+driver://username:password@host:port/database
 SKELETON_URL = '%(dialect_driver)s://%(user)s:%(pass)s@%(host)s/%(database)s'
@@ -59,7 +54,8 @@ def connect(db_user, db_password, db_hostname, db_database, d_n_d='mysql'):
     session = Session()
 
     # Get the name of the corrunt module
-    current_module = __import__(__name__)
+    current_module = importlib.import_module(__name__)
+    # current_module = __import__(__name__)
 
     # iterate over tables and append them to current module
     for tablename in metadata.tables.keys():
