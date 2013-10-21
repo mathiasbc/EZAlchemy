@@ -38,7 +38,7 @@ def connect(db_user, db_password, db_hostname, db_database, d_n_d='mysql'):
         'user': db_user,
         'pass': db_password,
         'host': db_hostname,
-        'database': db_database,
+        'database': db_database, 
     }
 
     #Create and engine and get the metadata
@@ -65,6 +65,64 @@ def connect(db_user, db_password, db_hostname, db_database, d_n_d='mysql'):
         )
         # add new Table class to module
         setattr(current_module, new_class.__name__, new_class)
+
+
+class EZAlchemy(object):
+    ''' Wrapper to easily start interacting with database using SQLAlchemy'''
+
+    def __init__(
+        self, db_user, db_password, db_hostname, db_database, d_n_d='mysql'
+    ):
+        '''Builds the URL to connect to the database and connects'''
+        DB_URL = SKELETON_URL % {
+            'dialect_driver': d_n_d,
+            'user': db_user,
+            'pass': db_password,
+            'host': db_hostname,
+            'database': db_database, 
+        }
+        #Create and engine and get the metadata
+        self.Base = declarative_base()
+        self.engine = create_engine(DB_URL)
+        self.metadata = MetaData(bind=self.engine)
+        self.metadata.reflect(self.engine)
+        #Create a session to use the tables
+        Session = sessionmaker(bind=self.engine)
+        self.session = Session()
+
+    def connectAutoload(self):
+        '''Automatically reflects every table on the database'''
+        # iterate over tables and append them to current module
+        for tablename in self.metadata.tables.keys():
+            # dynamically define new Table classes
+            new_class = type(str(tablename), (self.Base, object),
+                dict(
+                    __table__=Table(tablename, self.metadata, autoload=True)
+                )
+            )
+            # add new Table class to module
+            setattr(self, new_class.__name__, new_class)
+
+    def connect(self, tables):
+        '''Reflects only the tables specified in tables list'''
+        raise NotImplemented
+
+    def insert(self, tablename, **params):
+        '''inserts a new row to the table on database'''
+        try:
+            obj = self.tablename(**params)
+            session.add(obj)
+            session.commit()
+            return obj
+        except:
+            session.rollback()
+            raise
+
+    def delete(self, tablename, obj_instance):
+        '''delets a row from tha table in database'''
+        raise NotImplemented
+
+
 
 
 
