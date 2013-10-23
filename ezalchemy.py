@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+import importlib
 
 from sqlalchemy import MetaData, create_engine, Table
 from sqlalchemy.orm import create_session, sessionmaker
