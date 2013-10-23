@@ -1,7 +1,7 @@
 EZAlchemy
 =========
 
-Sets a basic start point that you can use to quickly interact with the tables in your existing database.
+Quickly interact with the tables in your existing database. Two different ways to do it, by loading tables to the module, or loading tables to a class EZAlchemy
 
 Installing:
 
@@ -9,6 +9,7 @@ Installing:
 
 Usage:
 
+Load tables to module
 ```python
 from EZAlchemy import ezalchemy
 
@@ -24,6 +25,27 @@ At this point connect function dynamically included the tables in the database i
 
 ```python
 new_car = ezalchemy.Cars().create(brand='Audi', year='2009', color='green')
+
+all_cars = ezalchemy.session.query(ezalchemy.Cars).all()
 ```
 
+Use the class wrapper with some more functionality
+```python
+from EZAlchemy.ezalchemy import EZAlchemy
 
+DB = EZAlchemy(
+    db_user='username',
+    db_password='pezzword',
+    db_hostname='127.0.0.1',
+    db_database='mydatabase',
+    d_n_d='mysql'   # stands for dialect+driver
+)
+
+# this function loads all tables in the database to the class instance DB
+DB.connectAutoload()
+DB.session.query(DD.Cars).all()
+
+# or just load tables that you need to use
+DB.connect(['Cars'])
+DB.session.query(DD.Cars).all()
+```
