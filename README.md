@@ -43,9 +43,9 @@ DB = EZAlchemy(
 
 # this function loads all tables in the database to the class instance DB
 DB.connectAutoload()
-DB.session.query(DD.Cars).all()
+DB.session.query(DB.Cars).all()
 
 # or just load tables that you need to use
 DB.connect(['Cars'])
-DB.session.query(DD.Cars).all()
+DB.session.query(DB.Cars).all()
 ```
