@@ -117,12 +117,12 @@ class EZAlchemy(object):
     def insert(self, tablename, **params):
         '''inserts a new row to the table on database'''
         try:
-            obj = self.tablename(**params)
-            session.add(obj)
-            session.commit()
+            obj = tablename(**params)
+            self.session.add(obj)
+            self.session.commit()
             return obj
         except:
-            session.rollback()
+            self.session.rollback()
             raise
 
     def delete(self, tablename, obj_instance):
