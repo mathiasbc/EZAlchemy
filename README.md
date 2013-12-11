@@ -49,6 +49,6 @@ DB.session.query(DB.Cars).all()
 DB.connect(['Cars'])
 DB.session.query(DB.Cars).all()
 
-Insert elements a safe way
+# Insert elements a safe way
 car = DB.insert(DB.Cars, brand='Audi', year='2009', color='green')
 ```
