@@ -1,9 +1,9 @@
 EZAlchemy
 =========
 
-Quickly interact with the tables in your existing database by loading tables to 
-the class EZAlchemy which also comes with some helpfull methods for inserting 
-and deleting rows a safe way.
+Quickly interact with your database by loading tables to the class EZAlchemy 
+which also comes with some helpfull methods for inserting and deleting rows 
+a safe way.
 
 Installing:
 
@@ -28,7 +28,7 @@ DB = EZAlchemy(
     d_n_d='mysql'   # stands for dialect+driver
 )
 
-Let's suppose we have a table in the database named Cars
+# let's suppose we have a table in the database named Cars
 
 # this function loads all tables in the database to the class instance DB
 DB.connectAutoload()
@@ -36,11 +36,11 @@ DB.connectAutoload()
 # or just load tables that you need to use
 DB.connect(['Cars'])
 
-# Insert elements a safe way
+# insert elements a safe way
 car = DB.insert(DB.Cars, brand='Audi', year='2009', color='green')
 print(car.color)
 
-# Query all Cars
+# query all Cars
 all_cars = DB.session.query(DB.Cars).all()
 
 # query certain columns
