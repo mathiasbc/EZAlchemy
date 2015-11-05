@@ -1,5 +1,4 @@
 *.py[cod]
-constants.py
 
 # Mac OS
 .DS_Store
