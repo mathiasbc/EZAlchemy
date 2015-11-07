@@ -7,7 +7,8 @@ setup_params = dict(
     description='Thin wrapper around sqlalchemy for quick database integration',
     author="Mathias Bustamante",
     author_email="mathiasbc@gmail.com",
-    url="https://github.com/mathiasbc/EZAlchemy.git",
+    url="https://github.com/mathiasbc/EZAlchemy",
+    download_url="https://github.com/mathiasbc/EZAlchemy/tarball/1.0.1",
     packages=['ezalchemy'],
     install_requires=[
         # please keep these lean and mean
