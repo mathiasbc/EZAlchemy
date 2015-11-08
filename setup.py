@@ -11,7 +11,6 @@ setup_params = dict(
     download_url="https://github.com/mathiasbc/EZAlchemy/tarball/1.0.1",
     packages=['ezalchemy'],
     install_requires=[
-        # please keep these lean and mean
         'SQLAlchemy>=1.0.9,<2',
     ]
 )

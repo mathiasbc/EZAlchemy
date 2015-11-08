@@ -7,13 +7,7 @@ a safe way.
 
 Installing:
 
-    $ git clone https://github.com/mathiasbc/EZAlchemy.git
-    $ cd EZAlchemy
-    $ pip install .
-
-    or
-
-    $ python setup.py install
+    $ pip install ezalchemy
 
 Usage:
 
