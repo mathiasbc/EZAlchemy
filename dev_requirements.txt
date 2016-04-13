@@ -1,0 +1,5 @@
+# install local module on edit mode
+-e .
+
+pytest
+pytest-sugar

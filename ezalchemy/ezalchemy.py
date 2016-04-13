@@ -28,30 +28,26 @@ class EZAlchemy(object):
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
 
-    def connectAutoload(self):
-        '''Automatically reflects every table on the database'''
-        # iterate over tables and append them to current module
-        for tablename in self.metadata.tables.keys():
-            # dynamically define new Table classes
-            new_class = type(str(tablename), (self.Base, object),
-                dict(
-                    __table__=Table(tablename, self.metadata, autoload=True)
-                )
+    def _bind_table(self, tablename):
+        ''' Binds a table on the database to the class'''
+        new_class = type(str(tablename), (self.Base, object),
+            dict(
+                __table__=Table(tablename, self.metadata, autoload=True)
             )
-            # add new Table class to module
-            setattr(self, new_class.__name__, new_class)
+        )
+        # add new Table class to module
+        setattr(self, new_class.__name__, new_class)        
 
-    def connect(self, tables_list):
-        '''Reflects only the tables specified in tables list'''
-        for tablename in tables_list:
+    def connect(self, table_list=None):
+        '''Automatically reflects every table on the database'''
+        # iterate over tables and bind them to current module
+        if table_list:
+            table_names = table_list
+        else:
+            table_names = self.metadata.tables.keys() 
+        for tablename in table_names:
             # dynamically define new Table classes
-            new_class = type(str(tablename), (self.Base, object),
-                dict(
-                    __table__=Table(tablename, self.metadata, autoload=True)
-                )
-            )
-            # add new Table class to module
-            setattr(self, new_class.__name__, new_class)
+            self._bind_table(tablename)
 
     def insert(self, tablename, **params):
         '''inserts a new row to the table on database'''
@@ -64,16 +60,20 @@ class EZAlchemy(object):
             self.session.rollback()
             raise
 
-    def delete(self, queryset):
-        '''delets a row from tha table in database'''
-        # TODO: have it receive and object or a queryset
+    def delete(self, query_or_obj):
+        '''deletes a Query or an obj returned from self.insert'''
         try:
-            for row in queryset:
+            for row in query_or_obj:
                 self.session.delete(row)
+            self.session.commit()
+            return True
+        except TypeError:
+            self.session.delete(query_or_obj)
             self.session.commit()
             return True
         except Exception as e:
             print("Error: {}".format(e))
             raise
+        return False
 
 

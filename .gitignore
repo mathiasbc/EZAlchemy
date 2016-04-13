@@ -1,4 +1,5 @@
 *.py[cod]
+.cache
 
 # Mac OS
 .DS_Store
