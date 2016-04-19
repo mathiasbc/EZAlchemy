@@ -40,6 +40,12 @@ all_cars = DB.session.query(DB.Cars).all()
 result = DB.session.query(DB.Cars).filter(DB.Cars.color=='green')
 print([r.brand for r in result) 
 
+# change some attributes
+green_car = DB.session.query(DB.Cars).filter(DB.Cars.color=='green').first()
+green_car.color = 'blue'
+blue_car = DB.merge(green_car)
+assert blue_car == DB.session.query(DB.Cars).filter(DB.Cars.color=='blue').first()
+
 # delete some elements
 result = DB.session.query(DB.Cars).filter(DB.Cars.year < 1980)
 DB.delete(result)   # will delete all rows of Cars older than 1980

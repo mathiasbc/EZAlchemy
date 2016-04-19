@@ -6,7 +6,7 @@ from constants import SKELETON_URL
 
 
 class EZAlchemy(object):
-    ''' Wrapper to easily start interacting with database using SQLAlchemy'''
+    '''Wrapper to easily start interacting with database using SQLAlchemy'''
 
     def __init__(
         self, db_user, db_password, db_hostname, db_database, d_n_d='mysql'
@@ -29,7 +29,7 @@ class EZAlchemy(object):
         self.session = Session()
 
     def _bind_table(self, tablename):
-        ''' Binds a table on the database to the class'''
+        '''Binds a table on the database to the class'''
         new_class = type(str(tablename), (self.Base, object),
             dict(
                 __table__=Table(tablename, self.metadata, autoload=True)
@@ -56,6 +56,16 @@ class EZAlchemy(object):
             self.session.add(obj)
             self.session.commit()
             return obj
+        except:
+            self.session.rollback()
+            raise
+
+    def merge(self, obj):
+        '''Merges or saves an object back to the database'''
+        try:
+            new_obj = self.session.merge(obj)
+            self.session.commit()
+            return new_obj
         except:
             self.session.rollback()
             raise

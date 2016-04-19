@@ -28,6 +28,14 @@ def test_insert():
 	assert car.color == 'green'
 	assert car.year == 2009
 
+def test_merge():
+	car = DB.session.query(DB.Cars).filter(DB.Cars.year==2009).first()
+	car.year = 2017
+	modified = DB.merge(car)
+	assert modified.year == 2017
+	queried_car = DB.session.query(DB.Cars).filter(DB.Cars.year==2017).first()
+	assert queried_car == modified
+
 def test_delete_queryset():
 	car = DB.session.query(DB.Cars).filter(DB.Cars.year==2009)
 	assert DB.delete(car) == True
