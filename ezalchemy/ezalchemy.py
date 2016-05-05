@@ -2,7 +2,7 @@ from sqlalchemy import MetaData, create_engine, Table
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-from constants import SKELETON_URL
+from .constants import SKELETON_URL
 
 
 class EZAlchemy(object):

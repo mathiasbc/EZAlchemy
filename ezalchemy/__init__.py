@@ -1,1 +1,1 @@
-from ezalchemy import EZAlchemy
+from .ezalchemy import EZAlchemy
