@@ -38,7 +38,7 @@ all_cars = DB.session.query(DB.Cars).all()
 
 # query certain columns
 result = DB.session.query(DB.Cars).filter(DB.Cars.color=='green')
-print([r.brand for r in result) 
+print([r.brand for r in result]) 
 
 # change some attributes
 green_car = DB.session.query(DB.Cars).filter(DB.Cars.color=='green').first()
