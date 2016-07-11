@@ -22,11 +22,11 @@ DB = EZAlchemy(
     d_n_d='mysql'   # stands for dialect+driver
 )
 
-# Suppose we have a table in the database named Cars
-# this function loads all tables in the database to the class instance DB
+
+# This function loads all tables in the database to the class instance DB
 DB.connect()
 
-# or just load tables that you need to use
+# Or just load tables that you need to use, suppose your table is named "Cars"
 DB.connect(['Cars'])
 
 # insert elements a safe way
@@ -36,13 +36,13 @@ print(car.color)
 # query all Cars
 all_cars = DB.session.query(DB.Cars).all()
 
-# query certain columns
+# query certain columns (use class attributes for columns)
 result = DB.session.query(DB.Cars).filter(DB.Cars.color=='green')
-print([r.brand for r in result)
+print([r.brand for r in result])
 
-# FIXME
-# query a column using strings
+# same query as above (using string for table columns)
 DB.session.query(DB.Cars).filter(getattr((DB.cars), 'color') =='green')
+print([r.brand for r in result]) 
 
 # change some attributes
 green_car = DB.session.query(DB.Cars).filter(DB.Cars.color=='green').first()
@@ -63,3 +63,13 @@ rows = DB.engine.execute('SELECT * from Cars')
 for row in rows:
     print(row[0], row[1])
 ```
+
+Development
+-----------
+
+Clone the repository, install dependencies and run the tests:
+
+    $ git clone https://github.com/mathiasbc/EZAlchemy.git
+    $ pip install -r dev_requirements.txt
+    $ py.test
+
