@@ -45,10 +45,10 @@ DB.session.query(DB.cars).filter(getattr((DB.cars), 'color') == 'green')
 print([r.brand for r in result]) 
 
 # change some attributes
-green_car = DB.session.query(DB.cars).filter(DB.cars.color=='green').first()
+green_car = DB.session.query(DB.cars).filter(DB.cars.color == 'green').first()
 green_car.color = 'blue'
 blue_car = DB.merge(green_car)
-assert blue_car == DB.session.query(DB.cars).filter(DB.cars.color=='blue').first()
+assert blue_car == DB.session.query(DB.cars).filter(DB.cars.color == 'blue').first()
 
 # delete some elements
 result = DB.session.query(DB.cars).filter(DB.cars.year < 1980)
