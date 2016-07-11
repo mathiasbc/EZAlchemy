@@ -64,12 +64,14 @@ for row in rows:
     print(row[0], row[1])
 ```
 
-Development
+Contributing
 -----------
 
 Clone the repository, install dependencies and run the tests:
 
     $ git clone https://github.com/mathiasbc/EZAlchemy.git
+    $ cd EZAlchemy
     $ pip install -r dev_requirements.txt
     $ py.test
 
+Feel free to make pull requests with any features that you would like to see or bug fixes.
