@@ -26,40 +26,40 @@ DB = EZAlchemy(
 # This function loads all tables in the database to the class instance DB
 DB.connect()
 
-# Or just load tables that you need to use, suppose your table is named "Cars"
-DB.connect(['Cars'])
+# Or just load tables that you need to use, suppose your table is named "cars"
+DB.connect(['cars'])
 
 # insert elements a safe way
-car = DB.insert(DB.Cars, brand='Audi', year=2009, color='green')
+car = DB.insert(DB.cars, brand='Audi', year=2009, color='green')
 print(car.color)
 
-# query all Cars
-all_cars = DB.session.query(DB.Cars).all()
+# query all cars
+all_cars = DB.session.query(DB.cars).all()
 
 # query certain columns (use class attributes for columns)
-result = DB.session.query(DB.Cars).filter(DB.Cars.color=='green')
+result = DB.session.query(DB.cars).filter(DB.cars.color == 'green')
 print([r.brand for r in result])
 
 # same query as above (using string for table columns)
-DB.session.query(DB.Cars).filter(getattr((DB.cars), 'color') =='green')
+DB.session.query(DB.cars).filter(getattr((DB.cars), 'color') == 'green')
 print([r.brand for r in result]) 
 
 # change some attributes
-green_car = DB.session.query(DB.Cars).filter(DB.Cars.color=='green').first()
+green_car = DB.session.query(DB.cars).filter(DB.cars.color=='green').first()
 green_car.color = 'blue'
 blue_car = DB.merge(green_car)
-assert blue_car == DB.session.query(DB.Cars).filter(DB.Cars.color=='blue').first()
+assert blue_car == DB.session.query(DB.cars).filter(DB.cars.color=='blue').first()
 
 # delete some elements
-result = DB.session.query(DB.Cars).filter(DB.Cars.year < 1980)
-DB.delete(result)   # will delete all rows of Cars older than 1980
+result = DB.session.query(DB.cars).filter(DB.cars.year < 1980)
+DB.delete(result)   # will delete all rows of cars older than 1980
 
 # delete individual element
-new_car = DB.insert(DB.Cars, brand='VW', year=2016, color='red')
+new_car = DB.insert(DB.cars, brand='VW', year=2016, color='red')
 DB.delete(new_car)
 
 # We can also use the "engine" to do raw SQL queries
-rows = DB.engine.execute('SELECT * from Cars')
+rows = DB.engine.execute('SELECT * from cars')
 for row in rows:
     print(row[0], row[1])
 ```
