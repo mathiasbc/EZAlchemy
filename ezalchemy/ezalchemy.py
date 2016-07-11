@@ -32,11 +32,11 @@ class EZAlchemy(object):
         '''Binds a table on the database to the class'''
         new_class = type(str(tablename), (self.Base, object),
             dict(
-                __table__=Table(tablename, self.metadata, autoload=True)
+                __table__ = Table(tablename, self.metadata, autoload=True)
             )
         )
         # add new Table class to module
-        setattr(self, new_class.__name__, new_class)        
+        setattr(self, new_class.__name__, new_class)
 
     def connect(self, table_list=None):
         '''Automatically reflects every table on the database'''
@@ -44,7 +44,7 @@ class EZAlchemy(object):
         if table_list:
             table_names = table_list
         else:
-            table_names = self.metadata.tables.keys() 
+            table_names = self.metadata.tables.keys()
         for tablename in table_names:
             # dynamically define new Table classes
             self._bind_table(tablename)
@@ -85,5 +85,3 @@ class EZAlchemy(object):
             print("Error: {}".format(e))
             raise
         return False
-
-

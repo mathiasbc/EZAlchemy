@@ -1,8 +1,8 @@
 EZAlchemy
 =========
 
-Quickly interact with your database by loading tables to the class EZAlchemy 
-which also comes with some helpfull methods for inserting and deleting rows 
+Quickly interact with your database by loading tables to the class EZAlchemy
+which also comes with some helpfull methods for inserting and deleting rows
 a safe way.
 
 Installing:
@@ -38,7 +38,11 @@ all_cars = DB.session.query(DB.Cars).all()
 
 # query certain columns
 result = DB.session.query(DB.Cars).filter(DB.Cars.color=='green')
-print([r.brand for r in result) 
+print([r.brand for r in result)
+
+# FIXME
+# query a column using strings
+DB.session.query(DB.Cars).filter(getattr((DB.cars), 'color') =='green')
 
 # change some attributes
 green_car = DB.session.query(DB.Cars).filter(DB.Cars.color=='green').first()
