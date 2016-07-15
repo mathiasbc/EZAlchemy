@@ -8,9 +8,8 @@ from .constants import SKELETON_URL
 class EZAlchemy(object):
     '''Wrapper to easily start interacting with database using SQLAlchemy'''
 
-    def __init__(
-        self, db_user, db_password, db_hostname, db_database, d_n_d='mysql'
-    ):
+    def __init__(self, db_user, db_password, 
+        db_hostname, db_database, d_n_d='mysql'):
         '''Builds the URL to connect to the database and connects'''
         DB_URL = SKELETON_URL % {
             'dialect_driver': d_n_d,
@@ -19,12 +18,12 @@ class EZAlchemy(object):
             'host': db_hostname,
             'database': db_database,
         }
-        #Create and engine and get the metadata
+        # Create and engine and get the metadata
         self.Base = declarative_base()
         self.engine = create_engine(DB_URL)
         self.metadata = MetaData(bind=self.engine)
         self.metadata.reflect(self.engine)
-        #Create a session to use the tables
+        # Create a session to use the tables
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
 
